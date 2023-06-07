@@ -17,7 +17,7 @@ function result (succ, msg, details){
     }else{
         return {
             success: succ,
-            message: msg
+            message: msg,
         }
     }
 }
@@ -25,7 +25,7 @@ function result (succ, msg, details){
 //register
 router.post('/register', async (req, res)=>{
     const { error } = registerValidation(req.body)
-    if (error) return res.status(200).json(resulr(0, error.details[0].message))
+    if (error) return res.status(200).json(result(0, error.details[0].message))
 
     //username exist
     const usernameExist = await User.findOne({ username: req.body.username })
@@ -35,7 +35,7 @@ router.post('/register', async (req, res)=>{
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(req.body.password, salt)
 
-    const user = new User()({
+    const user = new User({
         username: req.body.username,
         password: hashPassword
     })
@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
 
     //check password
     const validPwd = await bcrypt.compare(req.body.password, user.password)
-    if (!validpwd) return res.status(200).json(result(0, 'Your password is wrong'))
+    if (!validPwd) return res.status(200).json(result(0, 'Your password is wrong'))
 
     return res.status(200).json(result(1, 'Login user success', user))
 })

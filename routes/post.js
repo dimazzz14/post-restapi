@@ -97,8 +97,10 @@ router.delete('/:id', async (req, res) => {
             _id: req.params.id
         })
 
-        if (post.deleteCount > ){
-
+        if (post.deletedCount > 0 ){
+            res.status(200).json(result(0, 'Delete post success'))
+        }else{
+            res.status(200).json(result(0, 'Update post failed'))
         }
     }catch (error){
         res.status(500).json(result(0, error_message))
