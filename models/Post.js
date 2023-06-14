@@ -5,7 +5,7 @@ const postSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    user_id:{
+    user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
@@ -14,12 +14,11 @@ const postSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    modified_date:{
+    modified_date: {
         type: Date,
         default: null
     }
 }, {
     versionKey: false
 })
-
 module.exports = mongoose.model('Post', postSchema, 'post')
